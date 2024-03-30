@@ -6,8 +6,9 @@ using namespace std;
 // X Always starts first
 // Unless you find a way for it to alternate
 
-// TODO: - Input Validation
-//       - Making sure that user cannot enter a used up space
+// TODO: - Player function to make sure the game loop runs 
+//         alternating between X and O
+
 
 int main(){
     int board[SIZE] = {};

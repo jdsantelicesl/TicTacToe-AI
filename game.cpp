@@ -17,7 +17,7 @@ bool startingPlayer() {
     cout << "Pick X or O: ";
     cin >> user_input;
 
-    while (user_input != 'X' && user_input != 'O') {
+    while (user_input != 'X' && user_input != 'O' && user_input != 'x' && user_input != 'o') {
         cout << "Invalid input. Please pick X or O: ";
         cin >> user_input;
     }
