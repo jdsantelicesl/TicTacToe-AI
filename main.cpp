@@ -2,7 +2,7 @@
 #include "display.cpp"
 using namespace std;
 #define SIZE 9
-// Version: 0.0.0
+// Version: 0.0.1
 // X Always starts first
 // Unless you find a way for it to alternate
 
