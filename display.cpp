@@ -12,17 +12,22 @@ Output: None.
 void displayBoard(int state[]) {
     
     for(int i = 1; i <= 9; i++) {
+        
+        cout << "|";
+
         if(state[i-1] == 1) {
-            cout << "X ";
+            cout << "X";
         }
         else if (state[i-1] == -1) {
-            cout << "O ";
+            cout << "O";
         }
         else {
-            cout << "- ";
+            cout << " ";
         }
         if(i % 3 == 0) {
+            cout << "|";
             cout << "\n";
+            cout << "-------" << endl;
         }
     }
 }
