@@ -13,7 +13,7 @@ void displayBoard(int state[]) {
     
     for(int i = 1; i <= 9; i++) {
         
-        cout << "|";
+        cout << " | ";
 
         if(state[i-1] == 1) {
             cout << "X";
@@ -25,9 +25,9 @@ void displayBoard(int state[]) {
             cout << " ";
         }
         if(i % 3 == 0) {
-            cout << "|";
+            cout << " |";
             cout << "\n";
-            cout << "-------" << endl;
+            cout << " -------------" << endl;
         }
     }
 }
@@ -43,8 +43,9 @@ Output: the number of the square edited (0-8)
 int getInput(bool player, int state[]) {
     int val = 0;
     int set;
+    bool cont = true;
 
-    while(!(val >= 3 && val <= 9)) {
+    while(cont) {
         if (player) {
             cout << "It is X's turn to move" << endl;
             set = 1;
@@ -53,11 +54,20 @@ int getInput(bool player, int state[]) {
             cout << "It is O's turn to move" << endl;
             set = -1;
         }
-        cout << "Please enter a square to make your move (1-9): ";
+        cout << "Please enter a square to make your move (1-9) : ";
         cin >> val;
 
         if(!(val >= 3 && val <= 9)) {
             cout << "Invalid input, please enter a number from 1-9" << endl;
+            continue;
+        }
+        
+        if(state[val-1] != 0) {
+            cout << "This square is taken, please pick another" << endl;
+            continue;
+        }
+        else {
+            cont = false;
         }
     }
 
