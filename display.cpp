@@ -66,7 +66,7 @@ int getInput(bool player, int board[]) {
     int set;
     bool cont = true;
 
-    while(!(val >= 3 && val <= 9)) {
+    while(!(val >= 1 && val <= 9)) {
         if (player) {
             cout << "It is X's turn to move" << endl;
             set = 1;
