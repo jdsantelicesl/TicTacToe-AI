@@ -4,7 +4,13 @@ Please see team workspace: [Trello](https://trello.com/invite/b/bnEfUOxn/ATTI8b2
 
 Please see CS50 lecture:  [CS50](https://www.youtube.com/watch?v=gR8QvFmNuLE&list=PLhQjrBD2T381PopUTYtMSstgk-hsTGkVmhttps://www.youtube.com/watch?v=gR8QvFmNuLE&list=PLhQjrBD2T381PopUTYtMSstgk-hsTGkVm)
 
-Contributor names: Yixing Liang, Juan Santelices (creates player for tic-tac-toe), Van Anh Nguyen (powerpoint), Henry Nguyen (documentation, supervision), Edward Chuun (AI development) 
+# Contributor names:   
+- Yixing Liang                                   
+- Derick Izales-Urrea
+- Juan Santelices 
+- Van Anh Nguyen
+- Henry Nguyen 
+- Edward Chuun
 
 Professor Meili Xu for CISP 360 
 
