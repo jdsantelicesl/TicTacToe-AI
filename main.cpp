@@ -33,7 +33,7 @@ int main()
         cout << "O wins!" << endl;
     }
 
-    else if (winner(board) == 'D')
+    else
     {
         cout << "The game ended in a draw." << endl;
     }

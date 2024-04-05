@@ -54,8 +54,6 @@ char winner(int board[]) {
         {2, 4, 6}   // Diagonal 2
     };
 
-    bool draw = true;
-
     // Check each winning pattern
     for (int i = 0; i < 8; ++i) {
         int a = winning_patterns[i][0];
@@ -71,18 +69,9 @@ char winner(int board[]) {
             }
         }
 
-        if(board[i] == 0 || board[8] == 0) { // Added a check for last square because for loop only goes to 7
-            draw = false;
-        }
-
-    }
-
-    if(draw) {
-        return 'D';
-    }
-    else {
+    }    
         return '\0'; // Return null character to indicate no winner yet
-    }
+
 }
 
 
