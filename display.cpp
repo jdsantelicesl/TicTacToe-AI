@@ -6,7 +6,7 @@ using namespace std;
 /*
 Process : displays the current board to the terminal. 
           board array contains 1 for X, -1 for O, 0 for blank.
-Input   : board board
+Input   : board[]
 Output  : None.
 */
 void displayBoard(int board[]) {
@@ -43,7 +43,7 @@ int getInput(bool player, int board[]) {
     int set;
     bool cont = true;
 
-    while(!(val >= 1 && val <= 9)) {
+    while(cont) {
         if (player) {
             cout << "It is X's turn to move" << endl;
             set = 1;
@@ -57,17 +57,19 @@ int getInput(bool player, int board[]) {
 
         if(!(val >= 1 && val <= 9)) {
             cout << "Invalid input, please enter a number from 1-9" << endl;
+            cont = true;
             continue;
         }
         
         if(board[val-1] != 0) {
             cout << "This square is taken, please pick another" << endl;
+            cont = true;
             continue;
         }
         else {
             cont = false;
         }
-    } while(!(val >= 1 && val <= 9));
+    } 
 
     board[val-1] = set;
     return val-1;
