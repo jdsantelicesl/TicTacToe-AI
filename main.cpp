@@ -9,7 +9,7 @@ using namespace std;
 int main()
 {
     int board[SIZE] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-
+    
     bool player = startingPlayer();
     bool cont = true;
 
