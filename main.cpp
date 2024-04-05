@@ -1,29 +1,44 @@
+#include <iostream>
 #include "game.cpp"
 #include "display.cpp"
 using namespace std;
 #define SIZE 9
-// Version: 0.0.1
-// X Always starts first
-// Unless you find a way for it to alternate
+// Version: 0.0.2
+// User picks starting symbol
 
-// TODO: - Player function to make sure the game loop runs 
-//         alternating between X and O
+int main()
+{
+    int board[SIZE] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 
+    bool player = startingPlayer();
+    bool cont = true;
 
-int main(){
-    int board[SIZE] = {};
+    while (!winner(board))
+    {
+        displayBoard(board);
+        getInput(player, board);
+        player = getPlayer(player);
+    }
 
-    // Display Inital Board
+    cout << "Game over!" << endl;
     displayBoard(board);
 
-    // Main Game Loop
-    do{    
-        getInput(startingPlayer(), board);
-        displayBoard(board);
-    }while(!winner(board));   
-    
-    // Display Winner
-    cout << "The winner is " << winner(board);
+    if (winner(board) == 'X')
+    {
+        cout << "X wins!" << endl;
+    }
 
+    else if (winner(board) == 'O')
+    {
+        cout << "O wins!" << endl;
+    }
+
+    else if (winner(board) == 'D')
+    {
+        cout << "The game ended in a draw." << endl;
+    }
+
+    cout << "Thank you for playing" << endl;
+
+    return 0;
 }
-

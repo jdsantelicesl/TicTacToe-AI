@@ -22,7 +22,7 @@ bool startingPlayer() {
         cin >> user_input;
     }
 
-    return (user_input == 'X');
+    return (user_input == 'X' || user_input == 'x');
 }
 
 
@@ -32,13 +32,12 @@ Input   : The current player if X or O
 Output  : Return True  | if current = X    
           Return False | if current = O    
 */
-bool player(bool current){
-
-
+bool getPlayer(bool current){
+    return !current;
 }
 
 /*
-Process : Determins if there is a pattern for a winning game
+Process : Determins if there is a pattern for a winning game or draw
 Input   : 1 dimensional board array
 Output  : returns X or O depending on winner
 */
@@ -55,6 +54,8 @@ char winner(int board[]) {
         {2, 4, 6}   // Diagonal 2
     };
 
+    bool draw = true;
+
     // Check each winning pattern
     for (int i = 0; i < 8; ++i) {
         int a = winning_patterns[i][0];
@@ -69,10 +70,19 @@ char winner(int board[]) {
                 return 'O'; // O wins if board[a] is -1
             }
         }
+
+        if(board[i] == 0 || board[8] == 0) { // Added a check for last square because for loop only goes to 7
+            draw = false;
+        }
+
     }
 
-    // If no winning pattern is found
-    return '\0'; // Return null character to indicate no winner yet
+    if(draw) {
+        return 'D';
+    }
+    else {
+        return '\0'; // Return null character to indicate no winner yet
+    }
 }
 
 
