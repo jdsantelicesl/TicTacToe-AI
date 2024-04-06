@@ -1,4 +1,3 @@
-#include "game.cpp"
 #include <string>
 #include <iomanip>
 #include <iostream>
@@ -10,7 +9,7 @@ class Node
 {
 public:
     int value;
-    vector<Node *> children;
+    vector<Node*> children;
     int board[9];
 
     Node(int *arr)
@@ -23,6 +22,9 @@ public:
     void addChild(Node *child)
     {
         children.push_back(child);
+    }
+    void setValue(int val) {
+        value = val;
     }
 };
 
@@ -42,7 +44,18 @@ vector<int> actions(int board[]){
 // Returns the result of the board after the given action
 // 
 //
-int* result(int board[], vector<int> actions){
+int* result(int board[], int action, bool player){
+    int *arr = new int[9];
+    for(int i = 0; i < 9; i++) {
+        arr[i] = board[i];
+    }
+    if(player) {
+        arr[action] = 1;
+    }
+    else {
+        arr[action] = -1;
+    }
+    return arr;
 }
 
 // Calculate the utility value of the current board state.
@@ -73,10 +86,10 @@ float minimax(int board[]){
     head: The node to be expanded.
  Output: No output. Creates node children.
 */
-void createChildren(vector<int> actions, Node *head) {
+void createChildren(vector<int> actions, Node *head, bool player) {
 
     for(int i = 0; i < static_cast<int>(actions.size()); i++) {
-        int *arr = result(head->board, actions[i]);
+        int *arr = result(head->board, actions[i], player);
         head->addChild(new Node(arr));
 
     }
