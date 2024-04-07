@@ -42,6 +42,9 @@ Input   : 1 dimensional board array
 Output  : returns X or O depending on winner
 */
 char winner(int board[]) {
+
+    char retVal = 'D'; // Need it for draw check
+
     // Define winning patterns indexes
     int winning_patterns[8][3] = {
         {0, 1, 2},  // Row 1
@@ -55,7 +58,7 @@ char winner(int board[]) {
     };
 
     // Check each winning pattern
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < 8; ++i) { 
         int a = winning_patterns[i][0];
         int b = winning_patterns[i][1];
         int c = winning_patterns[i][2];
@@ -69,8 +72,13 @@ char winner(int board[]) {
             }
         }
 
+        // Need to check if draw for creating tree
+        if(board[i] == 0 || board[8] == 0) {
+            retVal = '\0';
+        }
+
     }    
-        return '\0'; // Return null character to indicate no winner yet
+        return retVal; // Return null character to indicate no winner
 
 }
 

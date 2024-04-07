@@ -80,17 +80,35 @@ float minimax(int board[]){
 }
 
 /*
- Process: Creates children for a node based on actions
+ Process: Creates children for a node based on actions. Then calls upon itself recursively until tree has been built.
  Input:
     actions: vector containing possible actions.
     head: The node to be expanded.
+    player: player's turn
  Output: No output. Creates node children.
 */
-void createChildren(vector<int> actions, Node *head, bool player) {
+void createChildren(vector<int> possibleActions, Node *head, bool player) {
 
-    for(int i = 0; i < static_cast<int>(actions.size()); i++) {
-        int *arr = result(head->board, actions[i], player);
+    for(int i = 0; i < static_cast<int>(possibleActions.size()); i++) {
+        int *arr = result(head->board, possibleActions[i], player);
         head->addChild(new Node(arr));
+
+        char state = winner(head->children[i]->board);
+
+        if (!state) { 
+            createChildren(actions(head->children[i]->board), head->children[i], getPlayer(player));
+        }
+        else {
+            if(state == 'X') {
+                head->children[i]->setValue(1);
+            }
+            else if(state == 'O') {
+                head->children[i]->setValue(-1);
+            }
+            else if(state == 'D') {
+                head->children[i]->setValue(0);
+            }
+        }
 
     }
 }
