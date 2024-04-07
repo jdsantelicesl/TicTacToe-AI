@@ -12,9 +12,11 @@ public:
     vector<Node*> children;
     int board[9];
     bool playerTurn;
+    int action;
 
     Node(int *arr)
     {
+
         for (int i = 0; i < 9; i++)
         {
             this->board[i] = *(arr + i);
@@ -29,6 +31,9 @@ public:
     }
     void setPlayer(bool turn) {
         playerTurn = turn;
+    }
+    void setAction(int act) {
+        action = act;
     }
 };
 
@@ -129,6 +134,7 @@ void createChildren(vector<int> possibleActions, Node *head, bool player) {
     for(int i = 0; i < static_cast<int>(possibleActions.size()); i++) {
         int *arr = result(head->board, possibleActions[i], player);
         head->addChild(new Node(arr));
+        head->children[i]->setAction(possibleActions[i]);
 
         char state = winner(head->children[i]->board);
 
@@ -148,4 +154,54 @@ void createChildren(vector<int> possibleActions, Node *head, bool player) {
         }
 
     }
+}
+
+/*
+ Process: takes a node and returns the child with the best move
+ Input: 
+    head: node to be expanded
+    player: players turn to move (X or O)
+ Output: pointer to child node.
+*/
+Node* aiMove(Node *head, bool player) {
+    int* boardRet;
+
+    int largest = -2;
+    int largestIdx;
+    int smallest = 2;
+    int smallestIdx;
+    
+    for(int i = 0; i < static_cast<int>(head->children.size()); i++) {
+        if(head->children[i]->value > largest) {
+            largest = head->children[i]->value;
+            largestIdx = i;
+        }
+        else if(head->children[i]->value < smallest) {
+            smallest = head->children[i]->value;
+            smallestIdx = i;
+        }
+    }
+
+    if(player) {
+        return head->children[largestIdx];
+    }
+    else {
+        return head->children[smallestIdx];
+    }
+}
+
+Node* playerMove(Node *head, int gameBoard[]) {
+    for(int i = 0; i < static_cast<int>(head->children.size()); i++) {
+        bool match = true;
+        for(int j = 0; j < 9; j++) {
+            if(head->children[i]->board[j] != gameBoard[j]) {
+                match = false;
+            }
+        }
+        if(match) {
+            return head->children[i];
+        }
+    }
+    cout << "No match found, invalid board input." << endl;
+    return nullptr;
 }
