@@ -8,9 +8,10 @@ using namespace std;
 class Node
 {
 public:
-    int value;
+    int value = -5; // -5 is just used as a null placeholder. There is no null of int :(
     vector<Node*> children;
     int board[9];
+    bool playerTurn;
 
     Node(int *arr)
     {
@@ -25,6 +26,9 @@ public:
     }
     void setValue(int val) {
         value = val;
+    }
+    void setPlayer(bool turn) {
+        playerTurn = turn;
     }
 };
 
@@ -75,7 +79,39 @@ int utility(int board[]){
 // Perform the Minimax algorithm to determine the best move for the current player.
 // Implement and return the optimal utility value for the current player.
 // Takes the current board state as input.
-float minimax(int board[]){
+void minimax(Node *head) {
+
+    if(head->children.empty()) {
+        return;
+    }
+
+    // If it is currently X's turn, it will be O's turn next. We need to pick the smallest value from children.
+    if(head->playerTurn) { 
+        int smallest = 2;
+        for(int i = 0; i < static_cast<int>(head->children.size()); i++) {
+            if(head->children[i]->value == -5) {
+                minimax(head->children[i]);
+            }
+            if(head->children[i]->value < smallest) {
+                smallest = head->children[i]->value;
+            }
+        }
+        head->setValue(smallest);
+    }
+
+    // If it is currently O's turn, it will be X's turn next. We need to pick the largest value from children.
+    else if(!head->playerTurn) {
+        int largest = -2;
+        for(int i =0; i < static_cast<int>(head->children.size()); i++) {
+            if(head->children[i]->value == -5) {
+                minimax(head->children[i]);
+            }
+            if(head->children[i]->value > largest) {
+                largest = head->children[i]->value;
+            }
+        }
+        head->setValue(largest);
+    }
     
 }
 
@@ -88,6 +124,7 @@ float minimax(int board[]){
  Output: No output. Creates node children.
 */
 void createChildren(vector<int> possibleActions, Node *head, bool player) {
+    head->setPlayer(player); 
 
     for(int i = 0; i < static_cast<int>(possibleActions.size()); i++) {
         int *arr = result(head->board, possibleActions[i], player);
