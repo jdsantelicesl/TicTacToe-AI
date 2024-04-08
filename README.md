@@ -14,11 +14,11 @@ Please see CS50 lecture:  [CS50](https://www.youtube.com/watch?v=gR8QvFmNuLE&lis
 - [Edward Chhun](w2056162@apps.losrios.edu)
 
 # Checklist of the Project Done So Far: 
-[.*Arrays]
-[..*Functions defined to not repeat files of code ]
-[..*For/while & Condtional Statements]
-[..* Function documentation]
-[..* Vectors & Pointers ]
-[..* Naming convinctions for Variables, Functions, and Constants]
++ Arrays
++ Functions defined to not repeat files of code 
++ For/while & Conditional Statements
++ Function documentation
++ Vectors & Pointers
++ Naming conventions for Variables, Functions, and Constants
 
 
