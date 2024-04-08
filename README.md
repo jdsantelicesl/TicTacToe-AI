@@ -4,6 +4,7 @@ Please see team workspace: [Trello](https://trello.com/invite/b/bnEfUOxn/ATTI8b2
 
 Please see CS50 lecture:  [CS50](https://www.youtube.com/watch?v=gR8QvFmNuLE&list=PLhQjrBD2T381PopUTYtMSstgk-hsTGkVmhttps://www.youtube.com/watch?v=gR8QvFmNuLE&list=PLhQjrBD2T381PopUTYtMSstgk-hsTGkVm)
 
+
 # Contributors:   
 - [Yixing Liang](w2056162@apps.losrios.edu)                                  
 - [Derick Izales-Urrea](w1787823@apps.losrios.edu)
@@ -12,5 +13,12 @@ Please see CS50 lecture:  [CS50](https://www.youtube.com/watch?v=gR8QvFmNuLE&lis
 - [Henry Nguyen](W1769259@apps.losrios.edu) 
 - [Edward Chhun](w2056162@apps.losrios.edu)
 
-Professor Meili Xu for CISP 360 
+# Checklist of the Project Done So Far: 
+..*Arrays
+..*Functions defined to not repeat files of code 
+..*For/while & Condtional Statements
+..* Function documentation 
+..* Vectors & Pointers 
+..* Naming convinctions for Variables, Functions, and Constants
+
 
