@@ -75,10 +75,11 @@ int utility(int board[]){
     char win = winner(board);
     if (win == 'X')
         return 1;
+        
     else if (win == 'O')
         return -1;
-    else if (winner(board))
-        return 0;
+        
+    return 0;
 
 }
 
