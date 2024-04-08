@@ -2,7 +2,6 @@
 #include <iomanip>
 #include <iostream>
 #include <vector>
-#include "game.cpp"
 
 using namespace std;
 
