@@ -11,7 +11,7 @@ void displayChildren(Node *head);
 int playerVsAi();
 
 // Version: 0.0.3
-// User picks gamemode, 1 = PvP , 2 = PvAI
+// User picks gamemode, true => PvP, false => PvAI
 int main()
 {
     bool gamemode = pvp();
@@ -27,27 +27,27 @@ int main()
 bool pvp()
 {
 
-unsigned user_input;
+    unsigned user_input;
 
-cout << "Press 1 for Player vs Player\n"
-     << "Press 2 for Player vs AI\n"
-     << "============================\n"
-     << "Enter: ";
+    cout << "Press 1 for Player vs Player\n"
+        << "Press 2 for Player vs AI\n"
+        << "============================\n"
+        << "Enter: ";
 
-do
-{
-    cin >>  user_input;
-    if (user_input != 1 && user_input !=2)
+    do
     {
-        cout << "Please Enter the correct choice: ";
-    }
+        cin >>  user_input;
+        if (user_input != 1 && user_input !=2)
+        {
+            cout << "Please Enter the correct choice: ";
+        }
 
-} while(user_input != 1 && user_input != 2);
-    
-if (user_input == 1)
-    return true;
-else
-    return false;
+    } while(user_input != 1 && user_input != 2);
+        
+    if (user_input == 1)
+        return true;
+    else
+        return false;
 }
 
 int playerVsPlayer()
