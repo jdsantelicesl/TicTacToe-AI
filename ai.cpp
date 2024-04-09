@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <iostream>
 #include <vector>
+#include <queue> // Queue data structure
 
 using namespace std;
 
@@ -10,6 +11,7 @@ class Node
 public:
     int value = -5; // -5 is just used as a null placeholder. There is no null of int :(
     vector<Node*> children;
+    queue<Node*> q;
     int board[9];
     bool playerTurn;
     int action;
@@ -40,6 +42,8 @@ public:
 // A function that looks for every possible actions.
 // Push back the possible actions as indexes into a vector 
 // Returns the vector.
+
+// TODO: Look into smart pointers
 vector<int> actions(int board[]){
     vector<int> possible_actions;
     for (int i = 0; i <= 8; i++){
@@ -49,6 +53,7 @@ vector<int> actions(int board[]){
     }
     return possible_actions;
 }
+
 
 // Returns the result of the board after the given action
 // 
@@ -79,47 +84,98 @@ int utility(int board[]){
         return -1;
         
     return 0;
-
 }
 
-// Perform the Minimax algorithm to determine the best move for the current player.
-// Implement and return the optimal utility value for the current player.
-// Takes the current board state as input.
+// Redefine the minimax function to use BFS
 void minimax(Node *head) {
+    // Queue for BFS traversal
+    queue<Node*> q;
+    // Push the root node to the queue
+    q.push(head);
 
-    if(head->children.empty()) {
-        return;
-    }
+    // Perform BFS until the queue is empty
+    while (!q.empty()) {
+        // Dequeue a node from the front of the queue
+        Node* current = q.front();
+        q.pop();
 
-    // If it is currently X's turn, it will be O's turn next. We need to pick the smallest value from children.
-    if(head->playerTurn) { 
-        int smallest = 2;
-        for(int i = 0; i < static_cast<int>(head->children.size()); i++) {
-            if(head->children[i]->value == -5) {
-                minimax(head->children[i]);
+        // If the node has children, enqueue them
+        for (Node* child : current->children) {
+            q.push(child);
+        }
+
+        // Perform minimax evaluation on the current node
+        if (!current->children.empty()) {
+            // If it is currently X's turn (MAX player), find the maximum value among children
+            if (current->playerTurn) { 
+                int largest = -2;
+                for (Node* child : current->children) {
+                    if (child->value > largest) {
+                        largest = child->value;
+                    }
+                }
+                current->setValue(largest);
             }
-            if(head->children[i]->value < smallest) {
-                smallest = head->children[i]->value;
+            // If it is currently O's turn (MIN player), find the minimum value among children
+            else {
+                int smallest = 2;
+                for (Node* child : current->children) {
+                    if (child->value < smallest) {
+                        smallest = child->value;
+                    }
+                }
+                current->setValue(smallest);
             }
         }
-        head->setValue(smallest);
-    }
-
-    // If it is currently O's turn, it will be X's turn next. We need to pick the largest value from children.
-    else if(!head->playerTurn) {
-        int largest = -2;
-        for(int i =0; i < static_cast<int>(head->children.size()); i++) {
-            if(head->children[i]->value == -5) {
-                minimax(head->children[i]);
-            }
-            if(head->children[i]->value > largest) {
-                largest = head->children[i]->value;
-            }
+        // Leaf node or terminal state, calculate utility value
+        else {
+            current->setValue(utility(current->board));
         }
-        head->setValue(largest);
     }
-    
 }
+
+
+/*
+    // Perform the Minimax algorithm to determine the best move for the current player.
+    // Implement and return the optimal utility value for the current player.
+    // Takes the current board state as input.
+    void minimax(Node *head) {
+
+        if(head->children.empty()) {
+            return;
+        }
+
+        // If it is currently X's turn, it will be O's turn next. We need to pick the smallest value from children.
+        if(head->playerTurn) { 
+            int smallest = 2;
+            for(int i = 0; i < static_cast<int>(head->children.size()); i++) {
+                if(head->children[i]->value == -5) {
+                    minimax(head->children[i]);
+                }
+                if(head->children[i]->value < smallest) {
+                    smallest = head->children[i]->value;
+                }
+            }
+            head->setValue(smallest);
+        }
+
+        // If it is currently O's turn, it will be X's turn next. We need to pick the largest value from children.
+        else if(!head->playerTurn) {
+            int largest = -2;
+            for(int i =0; i < static_cast<int>(head->children.size()); i++) {
+                if(head->children[i]->value == -5) {
+                    minimax(head->children[i]);
+                }
+                if(head->children[i]->value > largest) {
+                    largest = head->children[i]->value;
+                }
+            }
+            head->setValue(largest);
+        }
+        
+    }
+
+*/
 
 /*
  Process: Creates children for a node based on actions. Then calls upon itself recursively until tree has been built.
