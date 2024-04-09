@@ -138,7 +138,7 @@ int playerVsAi()
     {
         cout << "X wins!" << endl;
     }
-    if(winner(board) == 'D') 
+    else if(winner(board) == 'O') 
     {
         cout << "O wins!" << endl;
     }
