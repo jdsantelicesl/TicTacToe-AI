@@ -92,7 +92,7 @@ void minimax(Node *head) {
     }
 
     // If it is currently X's turn, it will be O's turn next. We need to pick the smallest value from children.
-    if(head->playerTurn) { 
+    if(!head->playerTurn) { 
         int smallest = 2;
         for(int i = 0; i < static_cast<int>(head->children.size()); i++) {
             if(head->children[i]->value == -5) {
@@ -106,7 +106,7 @@ void minimax(Node *head) {
     }
 
     // If it is currently O's turn, it will be X's turn next. We need to pick the largest value from children.
-    else if(!head->playerTurn) {
+    else if(head->playerTurn) {
         int largest = -2;
         for(int i =0; i < static_cast<int>(head->children.size()); i++) {
             if(head->children[i]->value == -5) {
@@ -165,6 +165,8 @@ void createChildren(vector<int> possibleActions, Node *head, bool player) {
  Output: pointer to child node.
 */
 Node* aiMove(Node *head, bool player) {
+    cout << "ai move function" << endl;
+
     int* boardRet;
 
     int largest = -2;
@@ -173,20 +175,26 @@ Node* aiMove(Node *head, bool player) {
     int smallestIdx;
     
     for(int i = 0; i < static_cast<int>(head->children.size()); i++) {
+        cout << "entered loop " << i << ": value: " << head->children[i]->value << endl;
         if(head->children[i]->value > largest) {
             largest = head->children[i]->value;
             largestIdx = i;
+            cout << "larger: " << largest << endl;
         }
-        else if(head->children[i]->value < smallest) {
+        if(head->children[i]->value < smallest) {
             smallest = head->children[i]->value;
             smallestIdx = i;
+            cout << "smallest: " << smallest << endl;
         }
     }
 
+    cout << "conditionals: " << player << endl;
     if(player) {
+        cout << "found largest: " << largest << endl;
         return head->children[largestIdx];
     }
     else {
+        cout << "found smallest: " << smallest << endl;
         return head->children[smallestIdx];
     }
 }
