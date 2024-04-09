@@ -165,8 +165,6 @@ void createChildren(vector<int> possibleActions, Node *head, bool player) {
  Output: pointer to child node.
 */
 Node* aiMove(Node *head, bool player) {
-    cout << "ai move function" << endl;
-
     int* boardRet;
 
     int largest = -2;
@@ -175,26 +173,20 @@ Node* aiMove(Node *head, bool player) {
     int smallestIdx;
     
     for(int i = 0; i < static_cast<int>(head->children.size()); i++) {
-        cout << "entered loop " << i << ": value: " << head->children[i]->value << endl;
         if(head->children[i]->value > largest) {
             largest = head->children[i]->value;
             largestIdx = i;
-            cout << "larger: " << largest << endl;
         }
         if(head->children[i]->value < smallest) {
             smallest = head->children[i]->value;
             smallestIdx = i;
-            cout << "smallest: " << smallest << endl;
         }
     }
 
-    cout << "conditionals: " << player << endl;
     if(player) {
-        cout << "found largest: " << largest << endl;
         return head->children[largestIdx];
     }
     else {
-        cout << "found smallest: " << smallest << endl;
         return head->children[smallestIdx];
     }
 }
