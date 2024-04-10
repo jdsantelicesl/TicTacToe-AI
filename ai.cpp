@@ -185,6 +185,7 @@ void minimax(Node *head) {
     player: player's turn
  Output: No output. Creates node children.
 */
+
 void createChildren(vector<int> possibleActions, Node *head, bool player) {
     head->setPlayer(player); 
 
@@ -224,9 +225,9 @@ Node* aiMove(Node *head, bool player) {
     int* boardRet;
 
     int largest = -2;
-    int largestIdx;
+    int largestIdx = 0;
     int smallest = 2;
-    int smallestIdx;
+    int smallestIdx = 0;
     
     for(int i = 0; i < static_cast<int>(head->children.size()); i++) {
         if(head->children[i]->value > largest) {
