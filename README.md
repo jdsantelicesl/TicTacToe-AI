@@ -5,7 +5,7 @@ Please see team workspace: [Trello](https://trello.com/invite/b/bnEfUOxn/ATTI8b2
 Please see CS50 lecture:  [CS50](https://www.youtube.com/watch?v=gR8QvFmNuLE&list=PLhQjrBD2T381PopUTYtMSstgk-hsTGkVmhttps://www.youtube.com/watch?v=gR8QvFmNuLE&list=PLhQjrBD2T381PopUTYtMSstgk-hsTGkVm)
 
 Project in C++20 for C++
-![alt text](http://url/to/cpp_logo.png)
+<img src= "cpp_logo.png" alt= "C_Plus Logo" width="160" height="160">
 
 # Contributors:   
 - [Yixing Liang](w2056162@apps.losrios.edu)                                  
