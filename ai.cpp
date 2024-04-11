@@ -75,10 +75,11 @@ int utility(int board[]){
     char win = winner(board);
     if (win == 'X')
         return 1;
+        
     else if (win == 'O')
         return -1;
-    else if (winner(board))
-        return 0;
+        
+    return 0;
 
 }
 
@@ -92,7 +93,7 @@ void minimax(Node *head) {
     }
 
     // If it is currently X's turn, it will be O's turn next. We need to pick the smallest value from children.
-    if(head->playerTurn) { 
+    if(!head->playerTurn) { 
         int smallest = 2;
         for(int i = 0; i < static_cast<int>(head->children.size()); i++) {
             if(head->children[i]->value == -5) {
@@ -106,7 +107,7 @@ void minimax(Node *head) {
     }
 
     // If it is currently O's turn, it will be X's turn next. We need to pick the largest value from children.
-    else if(!head->playerTurn) {
+    else if(head->playerTurn) {
         int largest = -2;
         for(int i =0; i < static_cast<int>(head->children.size()); i++) {
             if(head->children[i]->value == -5) {
@@ -177,7 +178,7 @@ Node* aiMove(Node *head, bool player) {
             largest = head->children[i]->value;
             largestIdx = i;
         }
-        else if(head->children[i]->value < smallest) {
+        if(head->children[i]->value < smallest) {
             smallest = head->children[i]->value;
             smallestIdx = i;
         }
