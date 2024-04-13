@@ -1,91 +1,52 @@
 #include <iostream>
-#include <vector>
 #include <fstream>
 #include <string>
-#include "game.cpp"
 using namespace std;
 
+int X_points=0, O_points=0, tie_points=0;
 
-int scoreboard() 
+/*
+Process : Creates a scoreboard array and writes the array into a file
+Input   : X_points, O_points, and tie_points
+Output  : None.
+*/
+void create_scoreboard(int X_points,int O_points,int tie_points) 
 {
-  //---------------------------
-  //-----SAMPLE SCOREBOARD-----
-  //---------------------------
-  int playerXTotalWins = 3,
-      playerOTotalWins = 5,
-      totalTies = 2;
-  //---------------------------
-  //---------------------------
+  //creates score array
+  string scores[3][2] ={{"Player X Points:",to_string(X_points)},
+                       {"Player O Points: ",to_string(O_points)},
+                       {"Ties",to_string(tie_points)}};
 
-
-  // Vectors to store points for the duration of one game
-  vector<string> playerXPoints = {"Player X Points:"},
-                  playerOPoints = {"Player O Points:"},
-                  tiePoints = {"Ties:"};
-
-  // Records points into vectors
-  // ----(switch to bool values)----
-  for(int num = 0; num < playerXTotalWins; num++)
-    playerXPoints.push_back("|");
-  for(int num = 0; num < playerOTotalWins; num++)
-    playerOPoints.push_back("|");
-  for(int num = 0; num < totalTies; num++)
-    tiePoints.push_back("|");
-
-
-
-  // Creates output and input stream objects for files
+  // Creates output stream object for the file
   ofstream ScoreBoardWrite;
-  ifstream ScoreBoardRead;
-
 
   // Opens and creates score board file
   ScoreBoardWrite.open("ScoreFile.txt");
 
-  // Writes points vectors to score board file
-  for(auto el = 0; el < playerXPoints.size(); el++)
-    ScoreBoardWrite << playerXPoints[el];
-  ScoreBoardWrite << endl;
-
-  for(auto el = 0; el < playerOPoints.size(); el++)
-    ScoreBoardWrite << playerOPoints[el];
-  ScoreBoardWrite << endl;
-
-  for(auto el = 0; el < tiePoints.size(); el++)
-    ScoreBoardWrite << tiePoints[el];
-  ScoreBoardWrite << endl;
+  // Writes score array to score board file
+  for(auto row = 0; row < 3; row++)
+    {
+    for(auto col = 0; col < 2; col++)
+      ScoreBoardWrite << scores[row][col];
+    ScoreBoardWrite << endl;
+    }
 
   // Close file
   ScoreBoardWrite.close();
 
-  //------------------------------------
-  // This bottom section is called when the game is over
-  // ----------(when user quits game)-----------
-  //------------------------------------
+}
 
-
-  // Opens score board file
-  ScoreBoardRead.open("ScoreFile.txt");
-
-  // Reads wins from score board file by line
-  string lineOne,
-         lineTwo,
-         lineThree;
-  getline(ScoreBoardRead, lineOne);
-  getline(ScoreBoardRead, lineTwo);
-  getline(ScoreBoardRead, lineThree);
-
-  // Records amount of wins from each line into totals
-  int XTotalWins = lineOne.length(),
-      OTotalWins = lineTwo.length(),
-      AllTies = lineThree.length();
-
-  // Displays amount of wins and ties
-  cout << "Player X won " << XTotalWins - 16 << " times" << endl; // Subtract characters for first element
-  cout << "Player O won " << OTotalWins - 16 << " times" << endl;
-  cout << "You tied " << AllTies - 5 << " times" << endl;
-  // Close file
-  ScoreBoardRead.close();
-
-  return 0;
+/*
+Process : Adds a point to the respective player
+Input   : char winner
+Output  : None.
+*/
+void add_point(char winner)
+{
+  if (winner=='X')
+    X_points++;
+  else if (winner=='O')
+    O_points++;
+  else
+  tie_points++;
 }
