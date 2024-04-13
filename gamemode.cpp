@@ -47,7 +47,7 @@ int playerVsPlayer()
     int board[SIZE] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
     
     bool player = startingPlayer();
-    bool cont = true;
+    
 
     while (!winner(board))
     {
