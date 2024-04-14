@@ -18,5 +18,6 @@ int main()
     }
 
     cout << "Thank you for playing!" << endl;
-
+    create_scoreboard(X_points, O_points, tie_points);
+    display_scoreboard();
 }
