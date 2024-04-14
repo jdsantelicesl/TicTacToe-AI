@@ -166,7 +166,7 @@ void createChildren(vector<int> possibleActions, Node *head, bool player) {
  Output: pointer to child node.
 */
 Node* aiMove(Node *head, bool player) {
-    int* boardRet;
+    
 
     int largest = -2;
     int largestIdx;
