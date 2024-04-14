@@ -25,4 +25,4 @@ Project in C++20 for C++
 
 
 # Google Slide Presentation for CISP 360 Submsission
-- [Link](https://docs.google.com/presentation/d/1pIOxqli6Gw1mmLd_bD1bYUhRY7HSrOxTaMTRq_N9rUU/edit?usp=sharing)
+- [CISP 360 Final](https://docs.google.com/presentation/d/1pIOxqli6Gw1mmLd_bD1bYUhRY7HSrOxTaMTRq_N9rUU/edit?usp=sharing)
