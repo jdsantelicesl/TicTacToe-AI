@@ -50,3 +50,33 @@ void add_point(char winner)
   else
   tie_points++;
 }
+
+
+/*
+Process : reads from scoreboard file and displays it
+Input   : None.
+Output  : None.
+*/
+void display_scoreboard()
+{
+   // Creates input stream objects for files
+  ifstream ScoreBoardRead;
+  // Opens score board file
+  ScoreBoardRead.open("ScoreFile.txt");
+
+  // Reads wins from score board file by line
+  string lineOne,
+         lineTwo,
+         lineThree;
+  getline(ScoreBoardRead, lineOne);
+  getline(ScoreBoardRead, lineTwo);
+  getline(ScoreBoardRead, lineThree);
+
+  //prints wins line by line
+ cout<<lineOne<<endl
+     <<lineTwo<<endl
+     <<lineThree<<endl;
+
+  //close file
+  ScoreBoardRead.close();
+}
