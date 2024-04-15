@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <iostream>
 #include <vector>
-#include "game.cpp"
+#include <memory>
 
 using namespace std;
 
@@ -13,11 +13,12 @@ public:
     vector<Node*> children;
     int board[9];
     bool playerTurn;
-    int action;
+    int action; // action taken to reach this state from parent.
+    int bestAction = -5; // best action that can be chosen
+    shared_ptr<Node> parent;
 
     Node(int *arr)
     {
-
         for (int i = 0; i < 9; i++)
         {
             this->board[i] = *(arr + i);
@@ -35,6 +36,9 @@ public:
     }
     void setAction(int act) {
         action = act;
+    }
+    void setBest(int best) {
+        bestAction = best;
     }
 };
 
@@ -83,78 +87,103 @@ int utility(int board[]){
 
 }
 
+shared_ptr<Node> findPath(const shared_ptr<Node> child, shared_ptr<Node> head)
+{
+    cout << "Find path func" << endl;
+    Node *childPtr = child.get();    // get() gets value of raw pointer from shared_ptr
+    Node *parentPtr = child->parent.get(); 
+    while (parentPtr != head.get())
+    {
+        parentPtr->setValue(childPtr->value);
+        childPtr = parentPtr;
+        parentPtr = parentPtr->parent.get();
+    }
+
+    head->setBest(childPtr->action);
+
+    shared_ptr<Node> newHead(childPtr);
+    return newHead;
+}
+
+void printQueue(shared_ptr<Node> queue) {
+    cout << '\n';
+    for(int i = 0; i < 9; i++) {
+        cout << queue->board[i];
+    }
+}
+
 // Perform the Minimax algorithm to determine the best move for the current player.
 // Implement and return the optimal utility value for the current player.
 // Takes the current board state as input.
-void minimax(Node *head) {
+shared_ptr<Node> minimax(shared_ptr<Node> head, bool player) {
+    cout << "Minimax func " << endl;
+    // Node queue for BFS
+    vector<shared_ptr<Node>> queue;
 
-    if(head->children.empty()) {
-        return;
-    }
+    // possible solution stacks
+    vector<shared_ptr<Node>> draw;
+    vector<shared_ptr<Node>> xWin;
+    vector<shared_ptr<Node>> oWin;
 
-    // If it is currently X's turn, it will be O's turn next. We need to pick the smallest value from children.
-    if(!head->playerTurn) { 
-        int smallest = 2;
-        for(int i = 0; i < static_cast<int>(head->children.size()); i++) {
-            if(head->children[i]->value == -5) {
-                minimax(head->children[i]);
+    // push head as initial element of queue
+    queue.push_back(head);
+
+    while(!queue.empty()) {
+        // Iterate through possible actions and add new node to queue for each.
+        if(!actions(queue[0]->board).empty())
+        {
+            for (int i = 0; i < static_cast<int>(actions(queue[0]->board).size()); i++)
+            {
+                // Create a new node with new board state from actions and the raw pointer value of queue[0]. 
+                shared_ptr<Node> newNode(new Node(result(queue[0]->board, actions(queue[0]->board)[i], queue[0]->playerTurn)));
+                newNode->setAction(actions(queue[0]->board)[i]);
+                newNode->playerTurn = !queue[0]->playerTurn;
+                newNode->parent = queue[0];
+                // add the new node to the queue
+                queue.push_back(newNode);
+                // pop the first element after using it
             }
-            if(head->children[i]->value < smallest) {
-                smallest = head->children[i]->value;
-            }
-        }
-        head->setValue(smallest);
-    }
-
-    // If it is currently O's turn, it will be X's turn next. We need to pick the largest value from children.
-    else if(head->playerTurn) {
-        int largest = -2;
-        for(int i =0; i < static_cast<int>(head->children.size()); i++) {
-            if(head->children[i]->value == -5) {
-                minimax(head->children[i]);
-            }
-            if(head->children[i]->value > largest) {
-                largest = head->children[i]->value;
-            }
-        }
-        head->setValue(largest);
-    }
-    
-}
-
-/*
- Process: Creates children for a node based on actions. Then calls upon itself recursively until tree has been built.
- Input:
-    actions: vector containing possible actions.
-    head: The node to be expanded.
-    player: player's turn
- Output: No output. Creates node children.
-*/
-void createChildren(vector<int> possibleActions, Node *head, bool player) {
-    head->setPlayer(player); 
-
-    for(int i = 0; i < static_cast<int>(possibleActions.size()); i++) {
-        int *arr = result(head->board, possibleActions[i], player);
-        head->addChild(new Node(arr));
-        head->children[i]->setAction(possibleActions[i]);
-
-        char state = winner(head->children[i]->board);
-
-        if (!state) { 
-            createChildren(actions(head->children[i]->board), head->children[i], getPlayer(player));
+            queue.erase(queue.begin());
+            //printQueue(queue[0]);
+            //cout << actions(queue[0]->board).empty() << endl;
         }
         else {
-            if(state == 'X') {
-                head->children[i]->setValue(1);
+            int value = utility(queue[0]->board);
+            queue[0]->setValue(value);
+
+            if(player && value == 1) {
+                return findPath(queue[0], head);
             }
-            else if(state == 'O') {
-                head->children[i]->setValue(-1);
+            else if(!player && value == -1) {
+                return findPath(queue[0], head);
             }
-            else if(state == 'D') {
-                head->children[i]->setValue(0);
+            else {
+                // if no optimal winning solution is found stack other options
+                if(value == 0) {
+                    draw.push_back(queue[0]);
+                }
+                else if(value == 1) {
+                    xWin.push_back(queue[0]);
+                }
+                else if(value == -1) {
+                    oWin.push_back(queue[0]);
+                }
             }
+
         }
 
+    }
+    cout << "Exited while" << endl;
+    if(!draw.empty()) {
+        return findPath(draw.back(), head);
+    }
+    else {
+        if(player) {
+            return findPath(oWin.back(), head);
+        }
+        else {
+            return findPath(xWin.back(), head);
+        }
     }
 }
 
@@ -165,45 +194,14 @@ void createChildren(vector<int> possibleActions, Node *head, bool player) {
     player: players turn to move (X or O)
  Output: pointer to child node.
 */
-Node* aiMove(Node *head, bool player) {
-    int* boardRet;
-
-    int largest = -2;
-    int largestIdx;
-    int smallest = 2;
-    int smallestIdx;
-    
-    for(int i = 0; i < static_cast<int>(head->children.size()); i++) {
-        if(head->children[i]->value > largest) {
-            largest = head->children[i]->value;
-            largestIdx = i;
-        }
-        if(head->children[i]->value < smallest) {
-            smallest = head->children[i]->value;
-            smallestIdx = i;
-        }
-    }
-
-    if(player) {
-        return head->children[largestIdx];
-    }
-    else {
-        return head->children[smallestIdx];
-    }
+shared_ptr<Node> aiMove(shared_ptr<Node> head, bool player)
+{
+    cout << "aiMove func" << endl;
+    return minimax(head, player);
 }
 
-Node* playerMove(Node *head, int gameBoard[]) {
-    for(int i = 0; i < static_cast<int>(head->children.size()); i++) {
-        bool match = true;
-        for(int j = 0; j < 9; j++) {
-            if(head->children[i]->board[j] != gameBoard[j]) {
-                match = false;
-            }
-        }
-        if(match) {
-            return head->children[i];
-        }
-    }
-    cout << "No match found, invalid board input." << endl;
-    return nullptr;
+shared_ptr<Node> playerMove(const shared_ptr<Node>& head, int gameBoard[], bool player) {
+    shared_ptr<Node> newNode(new Node(gameBoard));
+    newNode->playerTurn = !player;
+    return newNode;
 }
