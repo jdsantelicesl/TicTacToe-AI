@@ -3,6 +3,7 @@
 #include "game.cpp"
 #include "display.cpp"
 #include "ai.cpp"
+#include "scoreboard.cpp"
 
 using namespace std;
 
