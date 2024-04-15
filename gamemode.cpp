@@ -59,7 +59,7 @@ int playerVsPlayer()
 
     cout << "Game over!" << endl;
     displayBoard(board);
-
+    add_point(winner(board));
     if (winner(board) == 'X')
     {
         cout << "X wins!" << endl;
@@ -134,7 +134,7 @@ int playerVsAi()
         displayBoard(board);
         cout << '\n';
     }
-
+    add_point(winner(board));
     if(winner(board) == 'X') 
     {
         cout << "X wins!" << endl;
@@ -147,7 +147,7 @@ int playerVsAi()
     {
         cout << "Game end in a draw!" << endl;
     }
-
+    
     cout << "Thank you for playing" << endl;
 
     return 0;
