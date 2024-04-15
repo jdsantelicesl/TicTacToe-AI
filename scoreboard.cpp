@@ -13,7 +13,7 @@ Output  : None.
 void create_scoreboard(int X_points,int O_points,int tie_points) 
 {
   //creates score array
-  string scores[3][2] ={{"Player X Points:",to_string(X_points)},
+  string scores[3][2] ={{"Player X Points: ",to_string(X_points)},
                        {"Player O Points: ",to_string(O_points)},
                        {"Ties: ",to_string(tie_points)}};
 
