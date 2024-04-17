@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+// #include <windows.h> // Sleep() for windows
+#include <unistd.h> // Sleep() for unix
 #include "game.cpp"
 #include "display.cpp"
 #include "ai.cpp"
@@ -120,6 +122,7 @@ int playerVsAi()
 
 
         cout << "\nAi to move..." << endl;
+        sleep(2); // in seconds
         head = aiMove(head, !player);
         
         if(!player) 
