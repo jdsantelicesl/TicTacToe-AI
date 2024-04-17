@@ -1,7 +1,7 @@
 #include "gamemode.cpp"
-// Version: 0.0.3
+// Version: 0.1.0
 // User picks gamemode, true => PvP, false => PvAI
-// Game loops until terminates by user
+// Included Scoreboard
 int main()
 {
     bool play = true;
@@ -16,7 +16,6 @@ int main()
 
         play = playAgain();
     }
-
     cout << "Thank you for playing!" << endl;
     create_scoreboard(X_points, O_points, tie_points);
     display_scoreboard();
