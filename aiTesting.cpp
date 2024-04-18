@@ -36,6 +36,7 @@ int main() {
         }
         else
         {
+            cout << head->action << endl;
             board[head->action] = -1;
         }
 

@@ -102,13 +102,13 @@ shared_ptr<Node> findPath(const shared_ptr<Node> child, shared_ptr<Node> head)
     head->setBest(childPtr->action);
 
     shared_ptr<Node> newHead(childPtr);
+    cout << newHead->action << endl;
     return newHead;
 }
 
-void printQueue(shared_ptr<Node> queue) {
-    cout << '\n';
-    for(int i = 0; i < 9; i++) {
-        cout << queue->board[i];
+void printQueue(vector<int> actions) {
+    for(int i = 0; i < static_cast<int>(actions.size()); i++) {
+        cout << actions[i];
     }
 }
 
@@ -130,7 +130,7 @@ shared_ptr<Node> minimax(shared_ptr<Node> head, bool player) {
 
     while(!queue.empty()) {
         // Iterate through possible actions and add new node to queue for each.
-        if(!actions(queue[0]->board).empty())
+        if(!actions(queue[0]->board).empty() && !winner(queue[0]->board))
         {
             for (int i = 0; i < static_cast<int>(actions(queue[0]->board).size()); i++)
             {
@@ -143,11 +143,14 @@ shared_ptr<Node> minimax(shared_ptr<Node> head, bool player) {
                 queue.push_back(newNode);
                 // pop the first element after using it
             }
+            //displayBoard(queue[0]->board);
+            //printQueue(actions(queue[0]->board));
+            //cout << '\n';
+
             queue.erase(queue.begin());
-            //printQueue(queue[0]);
-            //cout << actions(queue[0]->board).empty() << endl;
         }
         else {
+            //displayBoard(queue[0]->board);
             int value = utility(queue[0]->board);
             queue[0]->setValue(value);
 
@@ -170,6 +173,7 @@ shared_ptr<Node> minimax(shared_ptr<Node> head, bool player) {
                 }
             }
 
+            queue.erase(queue.begin());
         }
 
     }
