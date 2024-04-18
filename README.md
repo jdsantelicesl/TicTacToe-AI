@@ -22,6 +22,10 @@ Project in C++20 for C++
 + Function documentation
 + Vectors & Pointers
 + Naming conventions for Variables, Functions, and Constants
++ Program runs w/o syntax or run-time errors
++ Documentation
++ Code is readable and reusable
++ Delivered on Time
 
 
 # Google Slide Presentation for CISP 360 Submsission
