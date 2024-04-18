@@ -1,4 +1,4 @@
-# CISP360 Final Project
+# TIC TAC TOE - AI in C++ | CISP 360 FINAL PROJECT
 
 Please see team workspace: [Trello](https://trello.com/invite/b/bnEfUOxn/ATTI8b2bb7350095619660381c16bf5b4e535E7570AF/cisp-360-final-project)
 
