@@ -1,4 +1,5 @@
 #include<iostream>
+#include<limits> // For data type checking
 #include<cmath>
 #include<string>
 using namespace std;
@@ -55,12 +56,25 @@ int getInput(bool player, int board[]) {
         cout << "Please enter a square to make your move (1-9) : ";
         cin >> val;
 
-        if(!(val >= 1 && val <= 9)) {
+        /*
+            if(!cin) // or if(cin.fail())
+            {
+                // user didn't input a number
+                cin.clear(); // reset failbit
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
+                // next, request user reinput
+            }
+        */
+
+        if(!(val >= 1 && val <= 9 || !cin.fail())) {
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             cout << "Invalid input, please enter a number from 1-9" << endl;
             cont = true;
             continue;
         }
-        
+
+                
         if(board[val-1] != 0) {
             cout << "This square is taken, please pick another" << endl;
             cont = true;
