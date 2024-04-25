@@ -87,7 +87,7 @@ int getInput(bool player, int board[]) {
             }
         */
 
-        if(!(val >= 1 && val <= 9 || !cin.fail())) {
+        if( !(val >= 1 && val <= 9) || cin.fail() ) {
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             cout << "Invalid input, please enter a number from 1-9" << endl;
