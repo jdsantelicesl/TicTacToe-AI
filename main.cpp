@@ -1,11 +1,15 @@
 #include "gamemode.cpp"
-// Version: 0.1.0
+// Version: 0.1.1
 // User picks gamemode, true => PvP, false => PvAI
-// Included Scoreboard
+// Included Board with Coords
+// To Do: Fix Scoreboard
 int main()
 {
     bool play = true;
 
+    // Display the coords
+    displayBoardCoords();
+    
     while (play) {
         bool gamemode = gameMode();
 
