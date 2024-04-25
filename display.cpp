@@ -8,7 +8,7 @@ using namespace std;
 Process : displays the current board to the terminal. 
           board array contains 1 for X, -1 for O, 0 for blank.
 Input   : board[]
-Output  : None.
+Output  : The game board.
 */
 void displayBoard(int board[]) {
     
@@ -31,6 +31,27 @@ void displayBoard(int board[]) {
             cout << " -------------" << endl;
         }
     }
+}
+
+/*
+Process : displays the board with coordinates
+Input   : None.
+Output  : The blank board with coordinates
+*/
+void displayBoardCoords() {
+
+        cout << "This are the coordinates for the board. \n \n";
+    
+        cout << "| 1 | 2 | 3 |" << "\n" 
+             << "-------------" << "\n"
+             << "| 4 | 5 | 6 |" << "\n" 
+             << "-------------" << "\n"
+             << "| 7 | 8 | 9 |" << "\n"
+             << "-------------" << "\n \n";
+
+
+        
+
 }
 
 /*
